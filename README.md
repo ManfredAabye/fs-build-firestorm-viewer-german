@@ -358,7 +358,8 @@ Hier ist ein Windows 11 Batch-Skript, das den Firestorm Viewer in einer isoliert
 
 1. Kopieren Sie das Skript `firestorm_build.bat`
 2. Führen Sie es als Administrator aus (Rechtsklick → "Als Administrator ausführen")
-3. Folgen Sie den Anweisungen (besonders für FMOD Studio)
+3. Sie sollten die Batch ausgabe in der Datei fs-compiling.log speichern und diese nach warning und error durchsuchen um diese schritt für schritt zu beheben
+4. Folgen Sie den Anweisungen (besonders für FMOD Studio)
 
 ### Konfigurationsoptionen Windows 11 Batch
 
@@ -385,4 +386,3 @@ Hier ist ein Windows 11 Batch-Skript, das den Firestorm Viewer in einer isoliert
 Möchten Sie Anpassungen an bestimmten Teilen des Skripts vornehmen?
 
 ---
-
