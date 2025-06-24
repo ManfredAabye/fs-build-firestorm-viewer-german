@@ -383,6 +383,4 @@ Hier ist ein Windows 11 Batch-Skript, das den Firestorm Viewer in einer isoliert
 - Der Build-Vorgang kann mehrere Stunden dauern
 - Stellen Sie sicher, dass mindestens 20GB freier Speicherplatz vorhanden sind
 
-Möchten Sie Anpassungen an bestimmten Teilen des Skripts vornehmen?
-
 ---
