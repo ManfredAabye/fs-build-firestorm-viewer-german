@@ -11,7 +11,7 @@ sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
 
 Folgendes Problem gibt es: Beim bauen zeigt der Buildvorgang 4 Fehler (Media?) an und weigert sich zu Bauen.
 
-Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64\newview das Bauen von Hand 2 mal angestossen wird der Viewer gebaut:
+Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64 das Bauen von Hand 2 mal angestossen wird der Viewer gebaut:
 
 ```bat
 msbuild Firestorm.sln /p:Configuration=Release /p:Platform=x64
