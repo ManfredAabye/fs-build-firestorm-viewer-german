@@ -2,15 +2,60 @@
 
 ---
 
-0cleaner.bat, 1software_installer.bat, 2firestorm_build.bat und 3firestorm_compiler.bat sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
+     0 cleaner.bat
+     1 software_installer.bat 
+     2 firestorm_build.bat
+     3 firestorm_compiler.bat 
 
-0cleaner.bat -* Entfernt den kompletten Firestorm aus dem Verzeichnis es bleiben nur die Dateien im Hauptverzeichnis zurück.
+sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
 
-1software_installer.bat -* Installiert CMake, Git, Visual Studio 2022 Community - Select "Desktop development with C++" workload und lädt alle Programmteile vom Git oder anderen Quellen herunter.
+## Funktion Firestorm Build-Skripte für Windows
 
-2firestorm_build.bat -* Installiert Python-Virtualenv inklusive der benötigten Python Version mit llbase llsd autobuild.
+### `0cleaner.bat`
+- **Funktion**:  
+  Entfernt den kompletten Firestorm-Build-Ordner.  
+  *Es bleiben nur Dateien im Hauptverzeichnis zurück.*
 
-3firestorm_compiler.bat -* Erstellt die Binären Dateien und Packt es in ein Installierbares Paket oder in ein Portables Verzeichnis und zipt es mit 7zip.
+---
+
+### `1software_installer.bat`
+- **Funktionen**:
+  - Installiert benötigte Build-Tools:
+    - CMake
+    - Git
+    - Visual Studio 2022 Community  
+      *(Workload: "Desktop development with C++")*
+  - Lädt alle Programmkomponenten von:
+    - Git-Repositories
+    - Offiziellen Quellen
+
+---
+
+### `2firestorm_build.bat`
+- **Funktionen**:
+  - Richtet Python-Virtualenv ein
+  - Installiert spezifische Python-Version
+  - Fügt erforderliche Pakete hinzu:
+    - `llbase`
+    - `llsd` 
+    - `autobuild`
+
+---
+
+### `3firestorm_compiler.bat`
+- **Funktionen**:
+  - Erstellt die Binärdateien
+  - Packt diese in:
+     - Ein installierbares Paket
+     - Ein portables Verzeichnis und Komprimiert das Ergebnis mit 7zip
+
+---
+
+### Ablauf:
+1. `0cleaner.bat` → Bereinigung durch komplettes löschen
+2. `1software_installer.bat` → Software-Installation  
+3. `2firestorm_build.bat` → Umgebungssetup  
+4. `3firestorm_compiler.bat` → Build & Packaging
 
 ---
 
