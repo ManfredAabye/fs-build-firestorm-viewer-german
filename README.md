@@ -9,7 +9,7 @@
 
 sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
 
-Folgendes Problem gibt es: Beim bauen zeigt der Buildvorgang 4 Fehler an und weigert sich zu Bauen.
+Folgendes Problem gibt es: Beim bauen zeigt der Buildvorgang 4 Fehler (Media?) an und weigert sich zu Bauen.
 
 Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64\newview das Bauen von Hand 2 mal angestossen wird der Viewer gebaut:
 
