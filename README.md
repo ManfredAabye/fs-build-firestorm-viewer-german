@@ -450,3 +450,29 @@ Hier ist ein Windows 11 Batch-Skript, das den Firestorm Viewer in einer isoliert
 - Stellen Sie sicher, dass mindestens 20GB freier Speicherplatz vorhanden sind
 
 ---
+
+# TODO
+
+## 🧭 Struktur des Firestorm Build- und Paketierungs-Skripts
+
+| Abschnitt | Funktion / Zweck | Beschreibung |
+|----------:|------------------|--------------|
+| **0** | 🧾 **Meta & Hinweise** | Versionsinfo, Autor, manuelle Hinweise zu DLL-Problemen & link.exe |
+| **1** | 🎨 **Terminalfarben definieren** | ANSI-Farben für saubere visuelle Ausgabe |
+| **2** | ⚙️ **Umgebungsvariablen & Verzeichnisse setzen** | Pfade wie `%SCRIPT_DIR%`, `%BUILD_DIR%`, `%VENV_DIR%`, `%CONFIG%`, `%AUTO_BUILD_CONFIG%` usw. |
+| **3** | 📁 **Arbeitsverzeichnis vorbereiten** | Erstellen von `%BUILD_DIR%` |
+| **4** | 🐍 **Python Virtualenv einrichten und aktivieren** | Umgebung anlegen, Pakete installieren (`llbase`, `llsd`, `autobuild`) |
+| **5** | 📦 **Repos klonen** | Holt `phoenix-firestorm` & `fs-build-variables` aus Git |
+| **6** | 🧩 **Build-Variablen & Dependencies** | Setzt `AUTOBUILD_VSVER`, installiert `requirements.txt` |
+| **7** | 🔁 **autobuild.xml vorbereiten** | Tauscht `autobuild.xml` gegen `openal_autobuild.xml` aus |
+| **8** | 🛠 **Visual Studio Umgebung aktivieren** | Findet und lädt `vcvarsall.bat` von VS2022 |
+| **9** | 🐍 **Python-Umgebung absichern** | Re-Aktivierung der `venv`, falls nötig |
+| **10** | 🧪 **autobuild.xml prüfen** | Sicherheitsprüfung: Datei vorhanden? Sonst Abbruch |
+| **11** | 📂 **Wechsel ins Quellverzeichnis** | `cd` nach `phoenix-firestorm` |
+| **12** | 🔧 **Konfiguration des Builds** | Führt `autobuild configure` mit den gewünschten Flags aus |
+| **13** | 🧱 **Build-Vorgang starten** | Kompilierung via `autobuild build` |
+| **14** | 📍 **Release-Verzeichnis erkennen** | Dynamische Suche nach `build-vc*-64\newview\Release` |
+| **15** | 🧬 **DLLs kopieren** | `alut.dll` und `OpenAL32.dll` ins Release-Verzeichnis übertragen |
+| **16** | 📦 **Portable ZIP erzeugen** | Erstellt `Firestorm-OpenSim-Portable.zip` mit allen Build-Dateien |
+| **17** | 🛠 **NSIS-Installer erstellen** | Führt `makensis.exe` mit `.nsi`-Skript aus |
+| **18** | 🧾 **Abschluss & Ausgabeübersicht** | Zeigt erfolgreich erstellte Dateien im Zielverzeichnis an |
