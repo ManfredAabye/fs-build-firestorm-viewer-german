@@ -4,22 +4,17 @@
 
      0 cleaner.bat
      1 software_installer.bat 
-     2 firestorm_build.bat
-     3 firestorm_compiler.bat 
+     new_firestorm_buildingV2.bat
+
+Ich habe fmod rausgenommen und OpenAL Sound eingefügt es wird alles gebaut nur werden 2 DLL Dateien nicht mit kopiert alut.dll und OpenAL32.dll.
+
+Der link.exe fehler ist auf Github installation zurückzuführen wenn man im Programm Ordner link.exe in glink.exe umbenennt dann findet der Build Prozess nicht mehr den git link.exe.
 
 sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
 
 Folgendes Problem gibt es: Beim bauen zeigt der Buildvorgang 4 Fehler (Media?) an und weigert sich zu Bauen.
 
 Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64 das Bauen von Hand 2 mal angestossen wird der Viewer gebaut:
-
-```bat
-msbuild Firestorm.sln /p:Configuration=Release /p:Platform=x64
-```
-oder
-```bat
-msbuild Firestorm.sln /p:Configuration=Debug /p:Platform=x64
-```
 
 ## Funktion Firestorm Build-Skripte für Windows
 
