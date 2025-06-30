@@ -210,3 +210,236 @@ autobuild package
 | Skripte      | `scripts`   |  
 
 ---
+
+## 🔨 `autobuild build`
+
+**Baut das aktuelle Paket** und kopiert die Ausgabedateien in das Build-Verzeichnis, damit `autobuild package` sie anschließend verpacken kann.
+
+### 🛠 Standardoptionen
+
+| Option             | Kurzform | Beschreibung                         |
+|--------------------|----------|--------------------------------------|
+| `--debug`          | `-d`     | Zeige Debug-Ausgabe                  |
+| `--dry-run`        | `-n`     | Simulierter Durchlauf ohne Änderungen |
+| `--help`           | `-h`     | Hilfe anzeigen                       |
+| `--quiet`          | `-q`     | Minimale Ausgabe                     |
+| `--verbose`        | `-v`     | Detaillierte Ausgabe                 |
+
+### 📌 Build-spezifische Optionen
+
+| Option                | Kurzform | Beschreibung                                                                 |
+|-----------------------|----------|------------------------------------------------------------------------------|
+| `--all`               | `-a`     | Alle Build-Konfigurationen erstellen                                        |
+| `--config-file FILE`  | –        | Verwende angegebene Konfigurationsdatei                                     |
+| `--configuration NAME`| `-c`     | Bestimmte Build-Konfiguration ausführen                                     |
+| `--no-configure`      | –        | Überspringe den `configure`-Schritt                                         |
+| `-- -jX`              | –        | Übergibt Optionen direkt an das Build-System, z. B. `-j1`                   |
+| `--id BUILD-ID`       | –        | Setzt eine eindeutige Build-ID (oder nutzt `AUTOBUILD_BUILD_ID`)           |
+| `--address-size BITS` | –        | 32 oder 64 Bit (Standard: Umgebungsvariable `AUTOBUILD_ADDRSIZE` oder `32`)|
+
+---
+
+## ⚙️ `autobuild configure`
+
+**Konfiguriert Build-Ziele für die gewählte Plattform.**
+
+🛠 Optionen identisch zu `autobuild build`.
+
+Zusätzlich:
+
+| Option                | Beschreibung                                                      |
+|-----------------------|-------------------------------------------------------------------|
+| `--configuration NAME`| Komma-separierte Liste von Konfigurationen (z. B. `Release,Debug`)|
+| `-- -DFLAG=ON`        | Gibt Parameter an, z. B. `-DUSE_OPENAL=TRUE` an CMake weiter       |
+
+---
+
+## 🧩 `autobuild edit`
+
+**Bearbeitet die Paketdefinition.**
+
+### ✏️ Unterbefehle:
+
+- `build` – definiert Build-Befehl(e)
+- `configure` – definiert Konfigurations-Schritte
+- `package` – setzt Paket-Metadaten (Name, Lizenz etc.)
+- `platform` – definiert Plattform-spezifische Einstellungen
+
+#### 📌 Argumente für `edit build`
+
+- `name`: Name der Konfiguration  
+- `platform`: Zielplattform  
+- `command`: auszuführender Build-Befehl  
+- `options`: Optionen  
+- `arguments`: Argumente
+
+#### 📌 Argumente für `edit package`
+
+- `name`: Paketname  
+- `description`: Beschreibung  
+- `copyright`: Urheberrecht  
+- `license`: Lizenztyp  
+- `license_file`: Pfad zur Lizenzdatei (relativ zum Paketstamm)  
+- `version_file`: Datei mit der Versionsnummer nach dem Build
+
+#### 📌 Argumente für `edit platform`
+
+- `name`: Plattformname  
+- `build_directory`: Verzeichnis für den Buildprozess
+
+---
+
+## 📦 `autobuild install`
+
+**Installiert Abhängigkeitspakete**, die während des Builds benötigt werden.
+
+### 🧾 Argumente
+
+- Paketname(n): z. B. `openal`, `assimp`  
+- Oder: _gar kein Paketname_ = installiert **alle** im Abschnitt `installables` definierten Pakete
+
+📢 Hinweis: Bei privaten GitHub/GitLab-Paketen brauchst du Umgebungsvariablen:
+
+```bash
+AUTOBUILD_GITHUB_TOKEN
+AUTOBUILD_GITLAB_TOKEN
+```
+
+### 🔧 Befehlsoptionen
+
+| Option                       | Beschreibung                                                    |
+|------------------------------|-----------------------------------------------------------------|
+| `--config-file`              | Pfad zur Konfigurationsdatei (`autobuild.xml`)                  |
+| `--install-dir`              | Zielverzeichnis für entpackte Pakete                           |
+| `--list`                     | Listet alle verfügbaren Pakete                                 |
+| `--list-installed`           | Zeigt installierte Pakete an                                   |
+| `--local <file>`             | Installiert ein lokales Archiv statt aus URL                   |
+| `--export-manifest`          | Gibt Installationsmanifest auf `stdout` aus                    |
+| `--what-installed <datei>`   | Zeigt an, welches Archiv eine bestimmte Datei installiert hat  |
+| `--list-licenses`, `--versions`, `--copyright`
+
+---
+
+## 🔁 `autobuild installables`
+
+**Verwaltet externe Abhängigkeiten des Projekts.**
+
+### 🔧 Befehlsstruktur
+
+```bash
+autobuild installables [add|edit|remove|print] <name> [attribute=value ...]
+```
+
+Beispiel:
+
+```bash
+autobuild installables edit openal platform=windows64 \
+  url=... hash=... hash_algorithm=sha1 version=1.24.2-r1
+```
+
+### Unterstützte Attribute
+
+- `url`: Download-URL  
+- `hash`: Prüfsumme der Datei  
+- `hash_algorithm`: z. B. `sha1`, `md5`, `blake2b`  
+- `creds`: optional `github` oder `gitlab` für geschützte Repos
+
+---
+
+## 📄 `autobuild manifest`
+
+**Definiert die Datei-/Verzeichnismuster für Dateien, die mit dem Befehl `autobuild package` in ein Archiv gepackt werden sollen.**
+
+### 📥 Argumente:
+
+- `command`: Unterbefehl – `add`, `remove`, `clear` oder `print`  
+- `pattern`: Dateipfad-Muster (z. B. `lib/*.dll`, `include/**/*.h`)
+
+### 🧰 Standardoptionen
+
+| Option             | Kurzform | Beschreibung                                                    |
+|--------------------|----------|-----------------------------------------------------------------|
+| `--debug`          | `-d`     | Zeige Debug-Ausgaben                                            |
+| `--dry-run`        | `-n`     | Simulationsmodus – keine Änderungen                            |
+| `--help`           | `-h`     | Hilfetext anzeigen                                              |
+| `--quiet`          | `-q`     | Minimale Ausgabe                                                |
+| `--verbose`        | `-v`     | Ausführliche Ausgabe                                            |
+
+### 🛠 Befehlspezifische Optionen
+
+| Option                   | Kurzform | Beschreibung                                                     |
+|--------------------------|----------|------------------------------------------------------------------|
+| `--config-file`          | –        | Pfad zur Konfigurationsdatei (Standard: `autobuild.xml`)         |
+| `--platform`             | `-p`     | Name der Plattform, für die das Manifest gilt                   |
+
+---
+
+## 📦 `autobuild package`
+
+**Packt die durch `autobuild build` erzeugten Artefakte in ein Distributionsarchiv.**
+
+### 🧰 Standardoptionen – wie oben.
+
+### 🛠 Spezifische Optionen
+
+| Option                   | Kurzform | Beschreibung                                                                    |
+|--------------------------|----------|---------------------------------------------------------------------------------|
+| `--config-file`          | –        | Konfigurationsdatei (Standard: `autobuild.xml`)                                |
+| `--archive-name`         | –        | Dateiname des zu erstellenden Archivs                                          |
+| `--platform`             | `-p`     | Plattform-Name, um die Standardplattform zu überschreiben                      |
+
+---
+
+## 🖨️ `autobuild print`
+
+**Zeigt die aktuelle `autobuild.xml`-Konfiguration lesbar für Menschen an.**
+
+### 🧰 Standardoptionen – wie gewohnt.
+
+### 🛠 Spezifische Optionen
+
+| Option              | Beschreibung                                           |
+|---------------------|--------------------------------------------------------|
+| `--config-file`     | Verwendet die angegebene Konfigurationsdatei          |
+| `--json`            | Gibt die Ausgabe im JSON-Format aus                   |
+
+---
+
+## 🌱 `autobuild source_environment`
+
+**Zeigt die Shell-Umgebungsvariablen, die für Autobuild erforderlich sind, z. B.:**
+
+```bash
+eval "$(autobuild source_environment)"
+```
+
+### 📦 Neuer Parameter (ab Version 1.1)
+
+```bash
+autobuild source_environment [varsfile]
+```
+
+- `varsfile`: Pfad zu einer Variablendatei (z. B. `AUTOBUILD_VARIABLES_FILE`)
+- Erlaubt gemeinsame Konfigurationswerte (wie Compiler-Flags) für mehrere Projekte.
+
+Beispiel: Linden Lab verwendet so eine Datei im `viewer-build-variables`-Repository.
+
+---
+
+## 🗑️ `autobuild uninstall`
+
+**Deinstalliert Pakete, die zuvor mit `autobuild install` installiert wurden.**
+
+### 📥 Argumente
+
+- Paketname(n), die deinstalliert werden sollen
+
+### 🧰 Optionen
+
+| Option                     | Beschreibung                                                                         |
+|----------------------------|--------------------------------------------------------------------------------------|
+| `--config-file`            | Pfad zur Konfigurationsdatei                                                        |
+| `--installed-manifest`     | Pfad zur Datei, die den aktuellen Installationsstand dokumentiert                   |
+| `--install-dir`            | Verzeichnis, in dem das Manifest erwartet wird                                      |
+
+---
