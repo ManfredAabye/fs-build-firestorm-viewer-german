@@ -47,8 +47,7 @@ Alles weitere zum bau eines OpenSim Viewers
 ### Ablauf:
 1. `0cleaner.bat` → Bereinigung durch komplettes löschen
 2. `1software_installer.bat` → Software-Installation  
-3. `2firestorm_build.bat` → Umgebungssetup  
-4. `3firestorm_compiler.bat` → Build & Packaging
+3. `2firestorm_buildingV7.bat` → Baut mit hilfe einer venv den kompletten Firestorm-OpenSim 
 
 ---
 
