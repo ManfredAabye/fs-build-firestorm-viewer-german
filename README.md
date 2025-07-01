@@ -51,7 +51,7 @@ Alles weitere zum bau eines OpenSim Viewers
 
 ---
 
-Diese Seite beschreibt alle notwendigen Schritte, um den Firestorm-Viewer für Windows zu kompilieren. Für Build-Anleitungen bis (und einschließlich) Version 6.5.3 siehe die archivierte Version für das Bauen mit Python 2.7.
+Diese Seite beschreibt alle notwendigen Schritte, um den Firestorm-Viewer für Windows zu kompilieren.
 
 **Warnung**  
 Bitte beachten Sie, dass wir keine Unterstützung für das selbstständige Kompilieren des Viewers anbieten. Es gibt jedoch eine Self-Compilers-Gruppe in Second Life, der Sie beitreten können, um Fragen zum Kompilieren des Viewers zu stellen: [Firestorm Self Compilers](https://example.com).
