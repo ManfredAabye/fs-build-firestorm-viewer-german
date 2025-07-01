@@ -38,23 +38,9 @@ Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64 das Bauen von Ha
 
 ---
 
-### `2firestorm_build.bat`
+### `2firestorm_buildingV7.bat`
 - **Funktionen**:
-  - Richtet Python-Virtualenv ein
-  - Installiert spezifische Python-Version
-  - Fügt erforderliche Pakete hinzu:
-    - `llbase`
-    - `llsd` 
-    - `autobuild`
-
----
-
-### `3firestorm_compiler.bat`
-- **Funktionen**:
-  - Erstellt die Binärdateien
-  - Packt diese in:
-     - Ein installierbares Paket
-     - Ein portables Verzeichnis und Komprimiert das Ergebnis mit 7zip
+Alles weitere zum bau eines OpenSim Viewers
 
 ---
 
