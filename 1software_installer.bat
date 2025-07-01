@@ -44,7 +44,8 @@ choco install -y --no-progress --stop-on-first-failure ^
     python ^
     nsis ^
     cygwin ^
-    7zip
+    7zip ^
+    doxygen
 
 :: Cygwin Pakete
 echo %GREEN%4. Installiere Cygwin-Pakete%RESET%
