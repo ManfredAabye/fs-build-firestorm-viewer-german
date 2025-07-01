@@ -61,7 +61,7 @@ Mit dem Merge von Linden Lab Release 6.6.16 ist es NICHT mehr möglich, 32-Bit-B
 
 ---
 
-## Erforderliche Entwicklungstools installieren
+## Erforderliche Entwicklungstools installieren Manuell
 
 Dies wird für das Kompilieren jedes Viewers benötigt, der auf dem Linden Lab Open-Source-Code basiert, und muss nur einmal durchgeführt werden.
 
