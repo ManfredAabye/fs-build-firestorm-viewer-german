@@ -27,7 +27,7 @@ Wenn aber der Bauvorgang per Hand im Verzeichnis build-vc170-64 das Bauen von Ha
 
 ### `1software_installer.bat`
 - **Funktionen**:
-  - Installiert benötigte Build-Tools:
+  - Installiert benötigte Build-Tools samt Einstellungen:
     - CMake
     - Git
     - Visual Studio 2022 Community  
