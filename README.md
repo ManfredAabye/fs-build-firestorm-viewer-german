@@ -10,7 +10,7 @@ Ich habe fmod rausgenommen und OpenAL Sound eingefügt es wird alles gebaut nur 
 
 Der link.exe fehler ist auf Github installation zurückzuführen wenn man im Programm Ordner link.exe in glink.exe umbenennt dann findet der Build Prozess nicht mehr den git link.exe.
 
-sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
+Es sind unabhängige Skripte, die sich nicht gegenseitig aufrufen.
 
 Folgendes Problem gibt es: Beim bauen zeigt der Buildvorgang 4 Fehler (Media?) an und weigert sich zu Bauen.
 
