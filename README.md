@@ -6,7 +6,8 @@
      1 software_installer.bat 
      2firestorm_buildingV17.bat
 
-Ich habe fmod rausgenommen und OpenAL Sound eingefügt es wird alles gebaut nur werden 2 DLL Dateien nicht mit kopiert alut.dll und OpenAL32.dll.
+Ich habe fmod rausgenommen und OpenAL Sound eingefügt es wird alles gebaut nur werden 2 DLL Dateien nicht mit kopiert alut.dll und OpenAL32.dll diese kann man wärend des building, 
+sobald das Firestorm_Build\phoenix-firestorm\build-vc170-64\newview\Release vorhanden ist einfügen.
 
 Der link.exe fehler ist auf Github installation zurückzuführen wenn man im Programm Ordner link.exe in glink.exe umbenennt dann findet der Build Prozess nicht mehr den git link.exe.
 
