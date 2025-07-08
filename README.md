@@ -4,7 +4,7 @@
 
      0 cleaner.bat
      1 software_installer.bat 
-     2firestorm_buildingV7.bat
+     2firestorm_buildingV17.bat
 
 Ich habe fmod rausgenommen und OpenAL Sound eingefügt es wird alles gebaut nur werden 2 DLL Dateien nicht mit kopiert alut.dll und OpenAL32.dll.
 
