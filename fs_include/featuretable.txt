@@ -1,0 +1,557 @@
+version 75
+// The above version number should only be incremented if a
+// change has been made that is so significant that all users' graphics settings need to be reset to the recommended
+// defaults. This should occur as rarely as possible.
+
+// NOTE: This file is largely identical to featuretable_mac.txt, but has some differences.
+// Should be combined into a table.
+
+//
+// Generates lists of feature masks that can be applied on top of each other.
+//
+// // Comments begin
+// List <Name>
+// Starts a feature list named <Name>
+// <Name> <Available> <Recommended>
+// <Name> is the name of a feature.
+// <Available> is 0 or 1, depending on whether the feature is available.
+// <Recommended> is an F32, the recommended value.
+//
+// The first list read initially sets all default values.
+//
+
+//
+// "All" contains all standard settings for high-end computers.
+// NOTE: All settings are set to the optimal minimum value for graphics cards from 2015 to 2025!
+//
+list all
+RenderAnisotropic			1	1
+RenderAvatarLODFactor		1	1.0
+RenderAvatarPhysicsLODFactor 1	1.0
+RenderAvatarMaxNonImpostors 1   16
+RenderAvatarMaxComplexity          1	350000
+RenderAutoMuteSurfaceAreaLimit     1	1000.0
+RenderCubeMap				1	1
+RenderFarClip				1	256
+RenderFlexTimeFactor		1	1.0
+RenderFogRatio				1	4.0
+RenderGamma					1	0
+RenderGlowResolutionPow		1	9
+RenderMaxPartCount			1	8192
+RenderObjectBump			1	1
+RenderLocalLightCount		1	4096
+RenderTransparentWater      1   1
+RenderReflectionsEnabled    1   1
+RenderReflectionProbeDetail	1	2
+RenderTerrainDetail			1	1
+RenderTerrainLODFactor		1	4.0
+RenderTerrainPBRDetail      1   4
+RenderTerrainPBRPlanarSampleCount 1   3
+RenderTreeLODFactor			1	1.0
+RenderVBOEnable				1	1
+RenderVBOMappingDisable		1	1
+RenderVolumeLODFactor		1	4.0
+UseStartScreen				1	1
+UseOcclusion				1	1
+WindLightUseAtmosShaders	1	1
+WLSkyDetail					1	128
+Disregard128DefaultDrawDistance	1	1
+Disregard96DefaultDrawDistance	1	1
+RenderCompressTextures		1	1
+RenderShaderLightingMaxLevel	1	3
+RenderReflectionProbeLevel  1   3
+RenderDeferred				1	1
+RenderDeferredSSAO			1	0
+RenderShadowDetail			1	2
+RenderUseStreamVBO			1	1
+RenderFSAAType			    1   0
+RenderFSAASamples			1   0
+RenderMaxTextureIndex		1	16
+RenderGLContextCoreProfile         1   1
+RenderGLMultiThreadedTextures      1   0
+RenderGLMultiThreadedMedia         1   1
+RenderReflectionProbeResolution 1 128
+RenderScreenSpaceReflections 1  1
+RenderMirrors				1	1
+RenderHeroProbeResolution	1	2048
+RenderHeroProbeDistance		1	16
+RenderHeroProbeUpdateRate	1	6
+RenderHeroProbeConservativeUpdateMultiplier 1 16
+RenderDownScaleMethod       1   0
+RenderCASSharpness          1   1
+RenderExposure				1   1
+RenderTonemapType			1   1
+RenderTonemapMix			1   1
+RenderDisableVintageMode           1   1
+RenderMaxTextureResolution         1   2048
+RenderReflectionProbeCount  1   256
+
+//
+// Low-Preset 2025
+//
+list Low
+RenderAnisotropic              1   0
+RenderAvatarLODFactor          1   0.5
+RenderAvatarPhysicsLODFactor   1   0.5
+RenderAvatarMaxNonImpostors    1   4
+RenderAvatarMaxComplexity      1   100000
+RenderFarClip                  1   64
+RenderGlowResolutionPow        1   6
+RenderLocalLightCount          1   64
+RenderMaxPartCount             1   1024
+RenderTerrainDetail            1   0
+RenderTerrainLODFactor         1   1.0
+RenderTerrainPBRDetail         1   0
+RenderTerrainPBRPlanarSampleCount 1 1
+RenderTransparentWater         1   0
+RenderTreeLODFactor            1   0.5
+RenderVolumeLODFactor          1   1.0
+RenderReflectionsEnabled       1   0
+RenderReflectionProbeDetail    1   0
+RenderReflectionProbeLevel     1   0
+RenderReflectionProbeCount     1   0
+RenderReflectionProbeResolution 1 64
+RenderScreenSpaceReflections   1   0
+RenderMirrors                  1   0
+RenderHeroProbeResolution      1   512
+RenderHeroProbeDistance        1   8
+RenderHeroProbeUpdateRate      1   1
+RenderHeroProbeConservativeUpdateMultiplier 1 2
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0
+RenderExposure                 1   1
+RenderTonemapType              1   0
+RenderTonemapMix               1   0.5
+RenderMaxTextureResolution     1   512
+RenderShaderLightingMaxLevel   1   1
+RenderDeferred                 1   0
+RenderDeferredSSAO             1   0
+RenderShadowDetail             1   0
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   0
+WindLightUseAtmosShaders       1   0
+WLSkyDetail                    1   16
+RenderDownScaleMethod          1   1
+RenderDisableVintageMode       1   1
+
+//
+// LowMid-Preset 2025
+//
+list LowMid
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   0.75
+RenderAvatarPhysicsLODFactor   1   0.75
+RenderAvatarMaxNonImpostors    1   6
+RenderAvatarMaxComplexity      1   150000
+RenderFarClip                  1   96
+RenderGlowResolutionPow        1   7
+RenderLocalLightCount          1   128
+RenderMaxPartCount             1   2048
+RenderTerrainDetail            1   0
+RenderTerrainLODFactor         1   1.25
+RenderTerrainPBRDetail         1   1
+RenderTerrainPBRPlanarSampleCount 1 1
+RenderTransparentWater         1   0
+RenderTreeLODFactor            1   0.75
+RenderVolumeLODFactor          1   1.5
+RenderReflectionsEnabled       1   0
+RenderReflectionProbeDetail    1   0
+RenderReflectionProbeLevel     1   0
+RenderReflectionProbeCount     1   0
+RenderReflectionProbeResolution 1 64
+RenderScreenSpaceReflections   1   0
+RenderMirrors                  1   0
+RenderHeroProbeResolution      1   1024
+RenderHeroProbeDistance        1   8
+RenderHeroProbeUpdateRate      1   2
+RenderHeroProbeConservativeUpdateMultiplier 1 2
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0.3
+RenderExposure                 1   1
+RenderTonemapType              1   1
+RenderTonemapMix               1   0.6
+RenderMaxTextureResolution     1   1024
+RenderShaderLightingMaxLevel   1   2
+RenderDeferred                 1   0
+RenderDeferredSSAO             1   0
+RenderShadowDetail             1   1
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   0
+WLSkyDetail                    1   32
+RenderDownScaleMethod          1   1
+RenderDisableVintageMode       1   1
+
+//
+// Mid-Preset 2025 Graphics Settings (standard)
+//
+list Mid
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   1.0
+RenderAvatarPhysicsLODFactor   1   1.0
+RenderAvatarMaxNonImpostors    1   8
+RenderAvatarMaxComplexity      1   200000
+RenderFarClip                  1   128
+RenderGlowResolutionPow        1   8
+RenderLocalLightCount          1   256
+RenderMaxPartCount             1   4096
+RenderTerrainDetail            1   1
+RenderTerrainLODFactor         1   1.5
+RenderTerrainPBRDetail         1   1
+RenderTerrainPBRPlanarSampleCount 1 2
+RenderTransparentWater         1   1
+RenderTreeLODFactor            1   1.0
+RenderVolumeLODFactor          1   2.0
+RenderReflectionsEnabled       1   1
+RenderReflectionProbeDetail    1   1
+RenderReflectionProbeLevel     1   2
+RenderReflectionProbeCount     1   64
+RenderReflectionProbeResolution 1 128
+RenderScreenSpaceReflections   1   0
+RenderMirrors                  1   0
+RenderHeroProbeResolution      1   1024
+RenderHeroProbeDistance        1   12
+RenderHeroProbeUpdateRate      1   3
+RenderHeroProbeConservativeUpdateMultiplier 1 4
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0.5
+RenderExposure                 1   1
+RenderTonemapType              1   1
+RenderTonemapMix               1   0.7
+RenderMaxTextureResolution     1   2048
+RenderShaderLightingMaxLevel   1   2
+RenderDeferred                 1   1
+RenderDeferredSSAO             1   0
+RenderShadowDetail             1   1
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   1
+WLSkyDetail                    1   64
+RenderDownScaleMethod          1   1
+RenderDisableVintageMode       1   1
+
+//
+// MidHigh-Preset 2025
+//
+list MidHigh
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   1.1
+RenderAvatarPhysicsLODFactor   1   1.1
+RenderAvatarMaxNonImpostors    1   10
+RenderAvatarMaxComplexity      1   300000
+RenderFarClip                  1   192
+RenderGlowResolutionPow        1   8
+RenderLocalLightCount          1   512
+RenderMaxPartCount             1   6144
+RenderTerrainDetail            1   1
+RenderTerrainLODFactor         1   2.0
+RenderTerrainPBRDetail         1   1
+RenderTerrainPBRPlanarSampleCount 1 3
+RenderTransparentWater         1   1
+RenderTreeLODFactor            1   1.25
+RenderVolumeLODFactor          1   3.0
+RenderReflectionsEnabled       1   1
+RenderReflectionProbeDetail    1   1
+RenderReflectionProbeLevel     1   2
+RenderReflectionProbeCount     1   128
+RenderReflectionProbeResolution 1 128
+RenderScreenSpaceReflections   1   1
+RenderMirrors                  1   0
+RenderHeroProbeResolution      1   1024
+RenderHeroProbeDistance        1   12
+RenderHeroProbeUpdateRate      1   3
+RenderHeroProbeConservativeUpdateMultiplier 1 4
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0.6
+RenderExposure                 1   1
+RenderTonemapType              1   1
+RenderTonemapMix               1   0.8
+RenderMaxTextureResolution     1   2048
+RenderShaderLightingMaxLevel   1   2
+RenderDeferred                 1   1
+RenderDeferredSSAO             1   0
+RenderShadowDetail             1   2
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   1
+WLSkyDetail                    1   96
+RenderDownScaleMethod          1   0
+RenderDisableVintageMode       1   1
+
+//
+// High-Preset 2025
+//
+list High
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   1.15
+RenderAvatarPhysicsLODFactor   1   1.15
+RenderAvatarMaxNonImpostors    1   12
+RenderAvatarMaxComplexity      1   400000
+RenderFarClip                  1   256
+RenderGlowResolutionPow        1   9
+RenderLocalLightCount          1   1024
+RenderMaxPartCount             1   8192
+RenderTerrainDetail            1   1
+RenderTerrainLODFactor         1   2.25
+RenderTerrainPBRDetail         1   1
+RenderTerrainPBRPlanarSampleCount 1 3
+RenderTransparentWater         1   1
+RenderTreeLODFactor            1   1.25
+RenderVolumeLODFactor          1   3.5
+RenderReflectionsEnabled       1   1
+RenderReflectionProbeDetail    1   2
+RenderReflectionProbeLevel     1   3
+RenderReflectionProbeCount     1   192
+RenderReflectionProbeResolution 1 192
+RenderScreenSpaceReflections   1   1
+RenderMirrors                  1   1
+RenderHeroProbeResolution      1   2048
+RenderHeroProbeDistance        1   16
+RenderHeroProbeUpdateRate      1   4
+RenderHeroProbeConservativeUpdateMultiplier 1 6
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0.8
+RenderExposure                 1   1
+RenderTonemapType              1   2
+RenderTonemapMix               1   0.9
+RenderMaxTextureResolution     1   3072
+RenderShaderLightingMaxLevel   1   3
+RenderDeferred                 1   1
+RenderDeferredSSAO             1	0
+RenderShadowDetail             1   2
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   1
+WLSkyDetail                    1   96
+RenderDownScaleMethod          1   0
+RenderDisableVintageMode       1   1
+
+//
+// HighUltra-Preset 2025
+//
+list HighUltra
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   1.2
+RenderAvatarPhysicsLODFactor   1   1.2
+RenderAvatarMaxNonImpostors    1   14
+RenderAvatarMaxComplexity      1   450000
+RenderFarClip                  1   320
+RenderGlowResolutionPow        1   9
+RenderLocalLightCount          1   2048
+RenderMaxPartCount             1   8192
+RenderTerrainDetail            1   1
+RenderTerrainLODFactor         1   2.5
+RenderTerrainPBRDetail         1   1
+RenderTerrainPBRPlanarSampleCount 1 4
+RenderTransparentWater         1   1
+RenderTreeLODFactor            1   1.5
+RenderVolumeLODFactor          1   3.5
+RenderReflectionsEnabled       1   1
+RenderReflectionProbeDetail    1   2
+RenderReflectionProbeLevel     1   3
+RenderReflectionProbeCount     1   192
+RenderReflectionProbeResolution 1 192
+RenderScreenSpaceReflections   1   1
+RenderMirrors                  1   1
+RenderHeroProbeResolution      1   2048
+RenderHeroProbeDistance        1   16
+RenderHeroProbeUpdateRate      1   4
+RenderHeroProbeConservativeUpdateMultiplier 1 6
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderCASSharpness             1   0.9
+RenderExposure                 1   1
+RenderTonemapType              1   2
+RenderTonemapMix               1   1.0
+RenderMaxTextureResolution     1   4096
+RenderShaderLightingMaxLevel   1   3
+RenderDeferred                 1   1
+RenderDeferredSSAO             1	0
+RenderShadowDetail             1   3
+RenderCompressTextures         1   1
+RenderVBOEnable                1   1
+RenderUseStreamVBO             1   1
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   1
+WLSkyDetail                    1   128
+RenderDownScaleMethod          1   0
+RenderDisableVintageMode       1   1
+
+//
+// ULTRA-PRESET 2025
+//
+list Ultra
+RenderAnisotropic              1   1
+RenderAvatarLODFactor          1   1.25
+RenderAvatarPhysicsLODFactor   1   1.25
+RenderAvatarMaxNonImpostors    1   16
+RenderAvatarMaxComplexity      1   500000
+RenderAutoMuteSurfaceAreaLimit 1   1000.0
+RenderCubeMap                  1   1
+RenderFarClip                  1   512
+RenderFlexTimeFactor           1   1.0
+RenderFogRatio                 1   4.0
+RenderGamma                    1   2
+RenderGlowResolutionPow        1   10
+RenderMaxPartCount             1   8192
+RenderObjectBump               1   1
+RenderLocalLightCount          1   8192
+RenderTransparentWater         1   1
+RenderReflectionsEnabled       1   1
+RenderReflectionProbeDetail    1   2
+RenderReflectionProbeLevel     1   3
+RenderReflectionProbeCount     1   256
+RenderReflectionProbeResolution 1 256
+RenderScreenSpaceReflections   1   1
+RenderMirrors                  1   1
+RenderTerrainDetail            1   1
+RenderTerrainLODFactor         1   2.5
+RenderTerrainPBRDetail         1   4
+RenderTerrainPBRPlanarSampleCount 1 4
+RenderTreeLODFactor            1   1.5
+RenderVolumeLODFactor          1   4.0
+RenderVBOEnable                1   1
+RenderVBOMappingDisable        1   1
+UseStartScreen                 1   1
+UseOcclusion                   1   1
+WindLightUseAtmosShaders       1   1
+WLSkyDetail                    1   128
+RenderShaderLightingMaxLevel   1   3
+RenderDeferred                 1   1
+RenderDeferredSSAO             1	0
+RenderShadowDetail             1   3
+RenderUseStreamVBO             1   1
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderMaxTextureIndex          1   16
+RenderMaxTextureResolution     1   4096
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+RenderHeroProbeResolution      1   2048
+RenderHeroProbeDistance        1   16
+RenderHeroProbeUpdateRate      1   4
+RenderHeroProbeConservativeUpdateMultiplier 1 8
+RenderDownScaleMethod          1   0
+RenderCASSharpness             1   1.0
+RenderExposure                 1   1
+RenderTonemapType              1   2
+RenderTonemapMix               1   1.0
+RenderDisableVintageMode       1   1
+
+
+//
+// Class Unknown Hardware (unknown)
+//
+list Unknown
+RenderShadowDetail              1   0
+RenderDeferredSSAO             1   0
+RenderMirrors                  1   0
+RenderDisableVintageMode       1   1
+RenderMaxTextureResolution     1   1024
+RenderFSAAType                 1   0
+RenderGLContextCoreProfile     1   0
+
+
+//
+// VRAM > 512MB
+//
+list VRAMGT512
+RenderCompressTextures         1   1
+RenderMaxTextureResolution     1   2048
+
+//
+// "Default" setups for safe, low, medium, high
+//
+list safe
+RenderAnisotropic              1   0
+RenderAvatarMaxNonImpostors    1   8
+RenderAvatarMaxComplexity      1   100000
+RenderLocalLightCount          1   64
+RenderMaxPartCount             1   2048
+RenderTerrainDetail            1   0
+RenderTransparentWater         1   0
+RenderDeferredSSAO             1   0
+RenderShadowDetail             1   0
+RenderReflectionProbeDetail    1   0
+RenderMirrors                  1   0
+RenderDisableVintageMode       1   1
+RenderMaxTextureResolution     1   1024
+RenderReflectionProbeCount     1   0
+
+// Intel iGPUs (Xe, Arc, Lunar Lake)
+list Intel
+RenderAnisotropic              1   1
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderGLContextCoreProfile     1   1
+RenderGLMultiThreadedMedia     1   1
+RenderDownScaleMethod          1   0
+RenderDisableVintageMode       1   1
+RenderMaxTextureResolution     1   2048
+RenderShaderLightingMaxLevel   1   2
+
+// AMD-APUs (RDNA2/3, Ryzen 6000–8000G)
+list AMD
+RenderGLMultiThreadedTextures  1   1
+RenderGLMultiThreadedMedia     1   1
+RenderDisableVintageMode       1   1
+RenderFSAAType                 1   0
+RenderFSAASamples              1   0
+RenderAnisotropic              1   1
+RenderMaxTextureResolution     1   2048
+RenderShaderLightingMaxLevel   1   2
+
+
+list GL3
+RenderFSAAType                 0   0
+RenderFSAASamples              1   0
+RenderReflectionsEnabled       1   0
+RenderReflectionProbeDetail    1   0
+RenderMirrors                  1   0
+RenderGLMultiThreadedTextures  1   0
+RenderGLMultiThreadedMedia     1   0
+RenderDisableVintageMode       1   1
+RenderReflectionProbeCount     1   0
+
+list TexUnit16orLess
+RenderTerrainPBRDetail         1   0
+RenderMaxTextureResolution     1   1024
+
+list VaryingVectors16orLess
+RenderTerrainPBRPlanarSampleCount 1   1
+RenderShaderLightingMaxLevel      1   1
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<llsd>
+<map>
+    <key>version</key>
+    <string>1</string>
+    <key>type</key>
+    <string>metadata</string>
+    <key>build_id</key>
+    <string>13245988487</string>
+    <key>platform</key>
+    <string>windows64</string>
+    <key>configuration</key>
+    <string>default</string>
+    <key>package_description</key>
+    <map>
+      <key>license</key>
+      <string>LGPL2</string>
+      <key>license_file</key>
+      <string>LICENSES/openal-soft.txt</string>
+      <key>copyright</key>
+      <string>Copyright (C) 1999-2007 by authors.</string>
+      <key>version</key>
+      <string>1.24.2-r1</string>
+      <key>use_scm_version</key>
+      <boolean>true</boolean>
+      <key>name</key>
+      <string>openal</string>
+      <key>vcs_branch</key>
+      <string>refs/tags/v1.24.2-r1</string>
+      <key>vcs_revision</key>
+      <string>e33e940c00e8447bcf164dc6df3aa6096b86946b</string>
+      <key>vcs_url</key>
+      <string>git://github.com/secondlife/3p-openal-soft.git</string>
+      <key>canonical_repo</key>
+      <string>https://github.com/secondlife/3p-openal-soft</string>
+      <key>description</key>
+      <string>OpenAL Soft is a software implementation of the OpenAL 3D audio API.</string>
+      <key>source_type</key>
+      <string>git</string>
+    </map>
+    <key>manifest</key>
+    <array>
+      <string>LICENSES/freealut.txt</string>
+      <string>LICENSES/openal-soft.txt</string>
+      <string>include/AL\efx-presets.h</string>
+      <string>lib/release\alut.pdb</string>
+      <string>include/AL\alext.h</string>
+      <string>lib/release\alut.dll</string>
+      <string>include/AL\alut.h</string>
+      <string>include/AL\al.h</string>
+      <string>lib/release\OpenAL32.exp</string>
+      <string>lib/release\alut.exp</string>
+      <string>lib/release\alut.lib</string>
+      <string>lib/release\OpenAL32.lib</string>
+      <string>include/AL\efx-creative.h</string>
+      <string>include/AL\alc.h</string>
+      <string>include/AL\efx.h</string>
+      <string>lib/release\OpenAL32.dll</string>
+      <string>lib/release\OpenAL32.pdb</string>
+    </array>
+  </map>
+</llsd>
