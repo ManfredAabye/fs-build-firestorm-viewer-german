@@ -2,18 +2,22 @@
 chcp 65001 >nul
 setlocal enabledelayedexpansion
 
-:: OK Manfred Aabye 25.06.2025 Version 3.3
-REM 1software_installer.bat - Installiert die benötigten Software-Tools für den Firestorm Build-Prozess
+:: OK Manfred Aabye 22.08.2025 Version 3.4
+REM 1_build_software_installer.bat - Installiert die benötigten Software-Tools für den Firestorm Build-Prozess
 
-:: ANSI-Farben
-for /f %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
-set "GREEN=%ESC%[32m"
-set "RED=%ESC%[31m"
-set "RESET=%ESC%[0m"
+:: Setzt ANSI-Farbcodes für farbige Statusmeldungen im Terminal (funktioniert nur in unterstützten Konsolen)
+for /f %%a in ('echo prompt $E ^| cmd') do set ESC=%%a
+set GREEN=%ESC%[32m
+set RED=%ESC%[31m
+set YELLOW=%ESC%[33m
+set BLUE=%ESC%[34m
+set CYAN=%ESC%[36m
+set BRIGHT_CYAN=%ESC%[96m
+set RESET=%ESC%[0m
 
 echo %GREEN%=== Installation der Build-Tools ===%RESET%
-
-echo %GREEN%=== Installation der Build-Tools ===%RESET%
+echo %GREEN%Dieses Skript installiert die benötigten Software-Tools für den Firestorm Build-Prozess.%RESET%
+echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
 
 :: 1. Visual Studio 2022 Community mit BEIDEN Toolsets
 echo %GREEN%1. Installiere Visual Studio 2022 Community%RESET%
@@ -27,8 +31,11 @@ choco install -y --no-progress visualstudio2022community ^
     --add Microsoft.VisualStudio.Component.VC.14.16.x86.x64 ^
     --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
 
+echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
 :: Chocolatey
 echo %GREEN%2. Chocolatey-Installation%RESET%
+echo %GREEN%   - Chocolatey ist ein Paketmanager für Windows.%RESET%
+
 if not exist "%ProgramData%\Chocolatey\bin\choco.exe" (
     echo %GREEN%[INFO] Installiere Chocolatey...%RESET%
     powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex (New-Object Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')"
@@ -36,8 +43,12 @@ if not exist "%ProgramData%\Chocolatey\bin\choco.exe" (
     call "%ProgramData%\Chocolatey\bin\refreshEnv.cmd"
 )
 
+echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
+
 :: Tools installieren
 echo %GREEN%3. Installiere Build-Tools%RESET%
+echo %GREEN%   - CMake, Git, Python, NSIS, Cygwin, 7zip, Doxygen%RESET%
+
 choco install -y --no-progress --stop-on-first-failure ^
     cmake ^
     git ^
@@ -47,15 +58,18 @@ choco install -y --no-progress --stop-on-first-failure ^
     7zip ^
     doxygen
 
-:: Cygwin Pakete
+echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
+
+:: Installiere Cygwin-Pakete
 echo %GREEN%4. Installiere Cygwin-Pakete%RESET%
-:: cygwinsetup.exe
+
 if exist "C:\cygwin64\cygwinsetup.exe" (
     C:\cygwin64\cygwinsetup.exe -q -P patch
 ) else (
     echo %RED%[ERROR] Cygwin setup executable not found at 'C:\cygwin64\setup-x86_64.exe'. Check the path.%RESET%
 )
 
+echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
 echo %GREEN%=== Tool-Installation abgeschlossen ===%RESET%
-echo %GREEN%Führen Sie nun '2firestorm_build.bat' aus.%RESET%
+echo %GREEN%Führen Sie nun '2_firestorm_building_Vxx.bat' aus.%RESET%
 pause
