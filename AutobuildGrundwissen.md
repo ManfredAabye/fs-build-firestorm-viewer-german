@@ -606,3 +606,74 @@ autobuild uninstall zlib
 ```text
 edit → installables → install → source_environment → configure → build → manifest → package → print → (uninstall)
 ```
+
+---
+
+## 🧩 Drittanbieter-Bibliotheken
+
+Diese Seite listet alle Drittanbieter-Bibliotheken (3p) auf, die beim Bau des Second Life Viewers verwendet werden. Viele davon sind Open Source und über das Autobuild-System als vorgefertigte Pakete verfügbar.
+
+### 📦 Struktur eines typischen Drittanbieter-Pakets
+Ein modernes 3p-Paket (2024-Stil) sollte wie folgt aufgebaut sein:
+- `vendor/` – Git-Submodul mit dem Original-Quellcode
+- `.github/` – CI/CD-Konfiguration
+- `autobuild.xml` – Manifest für Autobuild
+- `build-cmd.sh` – Build-Skript
+- `LICENSE` – Lizenzinformationen
+- `README.md` – Projektbeschreibung
+
+### 👨‍💻 Anleitung für Mitwirkende
+1. Repository forken und lokal testen
+2. Pull Request (PR) erstellen – mit Etikette und Verhaltenskodex
+3. PR wird überprüft und gemerged
+4. Maintainer veröffentlicht neue Version
+
+### 🛠️ Anleitung für Maintainer
+- PRs zügig prüfen und mergen
+- Neue Version über GitHub Releases veröffentlichen
+- Versionsschema: `vUPSTREAM-rRELEASE` (z. B. `v1.0.0-r2`)
+
+### 🧵 Patches
+Patches liegen im Verzeichnis `patches/` und werden beim Build angewendet. Ein Hilfsbefehl im Build-Skript hilft beim Einspielen.
+
+### 🔄 Unterschiede zum alten Stil
+Früher wurden separate Branches für Vendor und Default verwendet. Der neue Ein-Branch-Stil ist einfacher, schneller und besser mit GitHub integriert.
+
+---
+
+## 📚 Liste der Drittanbieter-Bibliotheken
+
+| Bibliothek       | Lizenz         | Beschreibung |
+|------------------|----------------|--------------|
+| APR Suite        | Apache         | Portables C-Interface für OS-Funktionen (Threads, Sockets) |
+| Boost            | Boost License  | Umfangreiche C++-Bibliothek, z. B. für Tokenisierung |
+| Curl             | BSD-Stil       | Netzwerkprotokolle (GET/POST/PUT/DELETE) |
+| Expat            | MIT            | XML-Parser |
+| Freetype         | Freetype & andere | Font-Engine |
+| GLH Linear       | nVidia SDK     | OpenGL-Hilfsbibliothek |
+| GStreamer        | Open           | Multimedia-Framework |
+| JPEGlib          | Open           | JPEG-Dekodierung |
+| Kakadu (KDU)     | Kommerziell    | JPEG-2000-Dekodierung |
+| libpng           | Open           | PNG-Bildbibliothek |
+| libxml2          | MIT            | XML-Verarbeitung |
+| ndofdev          | BSD-Stil       | Joystick-Treiber für SpaceNavigator |
+| Ogg Vorbis       | BSD-Stil       | Audio-Codecs |
+| OpenAL           | GPL            | 3D-Audio |
+| OpenJPEG         | BSD-Stil       | Alternative zu Kakadu |
+| OpenSSL          | Apache         | Verschlüsselung (z. B. Login) |
+| SDL2             | zlib Lizenz    | Eingabe und Fenster-Setup unter Linux |
+| SLVoice          | Kommerziell    | Sprachfunktion (Vivox) |
+| TUT              | BSD-Stil       | Unit-Test-Framework |
+| XMLRPC-EPI       | Epinions       | XML-RPC-Protokoll |
+| zlib-ng          | zlib Lizenz    | Kompression für Netzwerk und Dateien |
+
+---
+
+## 🚫 Einschränkungen bei der Weiterverbreitung
+
+Einige Dateien dürfen nicht frei weitergegeben werden, z. B.:
+- **Meta-Fonts**: Nur für Second Life erlaubt, nicht für andere Zwecke
+- **Kakadu JPEG2000**: Nicht redistributierbar – OpenJPEG als Alternative
+- **Vivox-Komponenten**: SLVoice.exe, vivoxsdk.dll etc. sind nicht redistributierbar
+
+---
