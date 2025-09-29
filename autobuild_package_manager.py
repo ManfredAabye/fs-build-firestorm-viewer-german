@@ -207,7 +207,7 @@ class AutobuildPackageManager:
                   command=self.remove_selected_package, style="Accent.TButton").grid(row=0, column=0, padx=(0, 10))
         ttk.Button(button_frame, text="Alle Linux-Plattformen entfernen", 
                   command=self.remove_all_linux64, style="Blue.TButton").grid(row=0, column=1, padx=(0, 10))
-        ttk.Button(button_frame, text="Alle Darwin64 Plattformen entfernen", 
+        ttk.Button(button_frame, text="Alle Darwin-Plattformen entfernen", 
                   command=self.remove_all_darwin64, style="Blue.TButton").grid(row=0, column=2, padx=(0, 10))
         ttk.Button(button_frame, text="Aktualisieren", 
                   command=self.refresh_packages, style="Blue.TButton").grid(row=0, column=3)
@@ -574,10 +574,11 @@ class AutobuildPackageManager:
             messagebox.showerror("Fehler", f"Fehler beim Entfernen der Linux-Plattformen:\n{str(e)}")
     
     def remove_all_darwin64(self):
-        """Alle Darwin64-Plattformen aus allen Paketen entfernen"""
+        """Alle Darwin-Plattformen (64-bit und 32-bit) aus allen Paketen entfernen"""
         result = messagebox.askyesno(
-            "Darwin64 Plattformen entfernen",
-            "Möchten Sie alle Darwin64-Plattformen aus allen Paketen entfernen?\n\n"
+            "Darwin-Plattformen entfernen",
+            "Möchten Sie alle Darwin-Plattformen (darwin64 und darwin) aus allen Paketen entfernen?\n\n"
+            "Dies entfernt sowohl 64-bit als auch veraltete 32-bit Darwin-Einträge.\n"
             "Diese Aktion kann nicht rückgängig gemacht werden."
         )
         
@@ -586,6 +587,7 @@ class AutobuildPackageManager:
         
         try:
             removed_count = 0
+            darwin_platforms = ["darwin64", "darwin"]  # Beide Varianten entfernen
             
             for package_id, package_info in self.packages.items():
                 package_element = package_info["xml_element"]
@@ -600,14 +602,14 @@ class AutobuildPackageManager:
                         break
                 
                 if platforms_map is not None:
-                    # Finde und entferne Darwin64-Einträge
+                    # Finde und entferne alle Darwin-Einträge (64-bit und 32-bit)
                     to_remove = []
                     current_key = None
                     
                     for child in platforms_map:
                         if child.tag == "key":
                             current_key = child
-                        elif child.tag == "map" and current_key is not None and current_key.text == "darwin64":
+                        elif child.tag == "map" and current_key is not None and current_key.text in darwin_platforms:
                             to_remove.extend([current_key, child])
                             current_key = None
                             removed_count += 1
@@ -623,14 +625,14 @@ class AutobuildPackageManager:
             self.refresh_packages()
             
             if removed_count > 0:
-                self.status_label.config(text=f"{removed_count} Darwin64-Plattformen entfernt")
-                messagebox.showinfo("Erfolg", f"{removed_count} Darwin64-Plattformen erfolgreich entfernt!")
+                self.status_label.config(text=f"{removed_count} Darwin-Plattformen entfernt")
+                messagebox.showinfo("Erfolg", f"{removed_count} Darwin-Plattformen (64-bit und 32-bit) erfolgreich entfernt!")
             else:
-                self.status_label.config(text="Keine Darwin64-Plattformen gefunden")
-                messagebox.showinfo("Information", "Keine Darwin64-Plattformen zum Entfernen gefunden.")
+                self.status_label.config(text="Keine Darwin-Plattformen gefunden")
+                messagebox.showinfo("Information", "Keine Darwin-Plattformen zum Entfernen gefunden.")
             
         except Exception as e:
-            messagebox.showerror("Fehler", f"Fehler beim Entfernen der Darwin64-Plattformen:\n{str(e)}")
+            messagebox.showerror("Fehler", f"Fehler beim Entfernen der Darwin-Plattformen:\n{str(e)}")
     
     def save_file(self):
         """XML-Datei speichern"""
