@@ -9,12 +9,331 @@ from tkinter import ttk, messagebox, filedialog
 import xml.etree.ElementTree as ET
 import os
 import shutil
+import json
 from datetime import datetime
+
+class Internationalization:
+    """Klasse für Mehrsprachigkeit"""
+    
+    def __init__(self):
+        self.current_language = "de"  # Standard: Deutsch
+        self.translations = {
+            "de": {
+                # Fenster und Basis
+                "window_title": "Autobuild Package Manager",
+                "ready": "Bereit",
+                
+                # Datei-Bereich
+                "xml_file": "XML-Datei:",
+                "no_file_loaded": "Keine Datei geladen",
+                "open_file": "Datei öffnen",
+                "save_file": "Datei speichern",
+                "export_overview": "Übersicht exportieren",
+                "create_backup": "Backup erstellen",
+                
+                # Spaltenüberschriften
+                "package_id": "Paket-ID",
+                "name": "Name",
+                "version": "Version",
+                "platforms": "Plattformen",
+                "license": "Lizenz",
+                
+                # Buttons
+                "remove_selected": "Ausgewählte Pakete entfernen",
+                "remove_linux": "Alle Linux-Plattformen entfernen",
+                "remove_darwin": "Alle Darwin-Plattformen entfernen",
+                "refresh": "Aktualisieren",
+                "language": "Sprache:",
+                
+                # Dialoge und Nachrichten
+                "warning": "Warnung",
+                "error": "Fehler",
+                "success": "Erfolg",
+                "information": "Information",
+                "file_saved": "Datei gespeichert",
+                "backup_created": "Backup erstellt",
+                "overview_exported": "Übersicht exportiert",
+                
+                # Fehlermeldungen
+                "no_packages_selected": "Keine Pakete ausgewählt. Bitte wählen Sie mindestens ein Paket aus.",
+                "no_xml_loaded": "Keine XML-Datei geladen.",
+                "no_package_selected_remove": "Bitte wählen Sie ein Paket zum Entfernen aus.",
+                "no_file_to_save": "Keine Datei zum Speichern geladen.",
+                
+                # Bestätigungen
+                "confirm_remove_package": "Möchten Sie das Paket '{0}' wirklich entfernen?\n\nDiese Aktion kann nicht rückgängig gemacht werden.",
+                "confirm_remove_linux": "Möchten Sie alle Linux-Plattformen (linux64 und linux) aus allen Paketen entfernen?\n\nDies entfernt sowohl 64-bit als auch veraltete 32-bit Linux-Einträge.\nDiese Aktion kann nicht rückgängig gemacht werden.",
+                "confirm_remove_darwin": "Möchten Sie alle Darwin-Plattformen (darwin64 und darwin) aus allen Paketen entfernen?\n\nDies entfernt sowohl 64-bit als auch veraltete 32-bit Darwin-Einträge.\nDiese Aktion kann nicht rückgängig gemacht werden.",
+                
+                # Export-Texte
+                "overview_title": "AUTOBUILD PACKAGE OVERVIEW",
+                "source_xml": "Quell-XML",
+                "selected_packages_count": "Anzahl ausgewählter Pakete",
+                "package": "PAKET",
+                "description": "Beschreibung",
+                "copyright": "Copyright",
+                "platform_details": "Plattform-Details",
+                "archive_path": "Archive-Pfad",
+                "hash": "Hash",
+                "url": "URL",
+                "not_available": "Nicht verfügbar",
+                
+                # Status-Nachrichten
+                "packages_removed": "{0} Linux-Plattformen entfernt",
+                "darwin_removed": "{0} Darwin-Plattformen entfernt",
+                "no_linux_found": "Keine Linux-Plattformen gefunden",
+                "no_darwin_found": "Keine Darwin-Plattformen gefunden",
+                "package_removed": "Paket '{0}' entfernt",
+                "selection_status_none": "Keine Pakete ausgewählt ({0} verfügbar)",
+                "selection_status_all": "Alle {0} Pakete ausgewählt",
+                "selection_status_partial": "{0} von {1} Paketen ausgewählt"
+            },
+            "en": {
+                # Window and basics
+                "window_title": "Autobuild Package Manager",
+                "ready": "Ready",
+                
+                # File area
+                "xml_file": "XML File:",
+                "no_file_loaded": "No file loaded",
+                "open_file": "Open File",
+                "save_file": "Save File",
+                "export_overview": "Export Overview",
+                "create_backup": "Create Backup",
+                
+                # Column headers
+                "package_id": "Package ID",
+                "name": "Name",
+                "version": "Version",
+                "platforms": "Platforms",
+                "license": "License",
+                
+                # Buttons
+                "remove_selected": "Remove Selected Packages",
+                "remove_linux": "Remove All Linux Platforms",
+                "remove_darwin": "Remove All Darwin Platforms",
+                "refresh": "Refresh",
+                "language": "Language:",
+                
+                # Dialogs and messages
+                "warning": "Warning",
+                "error": "Error",
+                "success": "Success",
+                "information": "Information",
+                "file_saved": "File saved",
+                "backup_created": "Backup created",
+                "overview_exported": "Overview exported",
+                
+                # Error messages
+                "no_packages_selected": "No packages selected. Please select at least one package.",
+                "no_xml_loaded": "No XML file loaded.",
+                "no_package_selected_remove": "Please select a package to remove.",
+                "no_file_to_save": "No file loaded to save.",
+                
+                # Confirmations
+                "confirm_remove_package": "Do you really want to remove package '{0}'?\n\nThis action cannot be undone.",
+                "confirm_remove_linux": "Do you want to remove all Linux platforms (linux64 and linux) from all packages?\n\nThis removes both 64-bit and legacy 32-bit Linux entries.\nThis action cannot be undone.",
+                "confirm_remove_darwin": "Do you want to remove all Darwin platforms (darwin64 and darwin) from all packages?\n\nThis removes both 64-bit and legacy 32-bit Darwin entries.\nThis action cannot be undone.",
+                
+                # Export texts
+                "overview_title": "AUTOBUILD PACKAGE OVERVIEW",
+                "source_xml": "Source XML",
+                "selected_packages_count": "Number of selected packages",
+                "package": "PACKAGE",
+                "description": "Description",
+                "copyright": "Copyright",
+                "platform_details": "Platform Details",
+                "archive_path": "Archive Path",
+                "hash": "Hash",
+                "url": "URL",
+                "not_available": "Not available",
+                
+                # Status messages
+                "packages_removed": "{0} Linux platforms removed",
+                "darwin_removed": "{0} Darwin platforms removed",
+                "no_linux_found": "No Linux platforms found",
+                "no_darwin_found": "No Darwin platforms found",
+                "package_removed": "Package '{0}' removed",
+                "selection_status_none": "No packages selected ({0} available)",
+                "selection_status_all": "All {0} packages selected",
+                "selection_status_partial": "{0} of {1} packages selected"
+            },
+            "fr": {
+                # Fenêtre et éléments de base
+                "window_title": "Gestionnaire de Packages Autobuild",
+                "ready": "Prêt",
+                
+                # Zone de fichier
+                "xml_file": "Fichier XML:",
+                "no_file_loaded": "Aucun fichier chargé",
+                "open_file": "Ouvrir Fichier",
+                "save_file": "Sauvegarder Fichier",
+                "export_overview": "Exporter Aperçu",
+                "create_backup": "Créer Sauvegarde",
+                
+                # En-têtes de colonnes
+                "package_id": "ID Package",
+                "name": "Nom",
+                "version": "Version",
+                "platforms": "Plateformes",
+                "license": "Licence",
+                
+                # Boutons
+                "remove_selected": "Supprimer Packages Sélectionnés",
+                "remove_linux": "Supprimer Toutes Plateformes Linux",
+                "remove_darwin": "Supprimer Toutes Plateformes Darwin",
+                "refresh": "Actualiser",
+                "language": "Langue:",
+                
+                # Dialogues et messages
+                "warning": "Avertissement",
+                "error": "Erreur",
+                "success": "Succès",
+                "information": "Information",
+                "file_saved": "Fichier sauvegardé",
+                "backup_created": "Sauvegarde créée",
+                "overview_exported": "Aperçu exporté",
+                
+                # Messages d'erreur
+                "no_packages_selected": "Aucun package sélectionné. Veuillez sélectionner au moins un package.",
+                "no_xml_loaded": "Aucun fichier XML chargé.",
+                "no_package_selected_remove": "Veuillez sélectionner un package à supprimer.",
+                "no_file_to_save": "Aucun fichier chargé à sauvegarder.",
+                
+                # Confirmations
+                "confirm_remove_package": "Voulez-vous vraiment supprimer le package '{0}'?\n\nCette action ne peut pas être annulée.",
+                "confirm_remove_linux": "Voulez-vous supprimer toutes les plateformes Linux (linux64 et linux) de tous les packages?\n\nCela supprime les entrées Linux 64-bit et 32-bit obsolètes.\nCette action ne peut pas être annulée.",
+                "confirm_remove_darwin": "Voulez-vous supprimer toutes les plateformes Darwin (darwin64 et darwin) de tous les packages?\n\nCela supprime les entrées Darwin 64-bit et 32-bit obsolètes.\nCette action ne peut pas être annulée.",
+                
+                # Textes d'export
+                "overview_title": "APERÇU DES PACKAGES AUTOBUILD",
+                "source_xml": "XML Source",
+                "selected_packages_count": "Nombre de packages sélectionnés",
+                "package": "PACKAGE",
+                "description": "Description",
+                "copyright": "Copyright",
+                "platform_details": "Détails de Plateforme",
+                "archive_path": "Chemin d'Archive",
+                "hash": "Hash",
+                "url": "URL",
+                "not_available": "Non disponible",
+                
+                # Messages de statut
+                "packages_removed": "{0} plateformes Linux supprimées",
+                "darwin_removed": "{0} plateformes Darwin supprimées",
+                "no_linux_found": "Aucune plateforme Linux trouvée",
+                "no_darwin_found": "Aucune plateforme Darwin trouvée",
+                "package_removed": "Package '{0}' supprimé",
+                "selection_status_none": "Aucun package sélectionné ({0} disponibles)",
+                "selection_status_all": "Tous les {0} packages sélectionnés",
+                "selection_status_partial": "{0} sur {1} packages sélectionnés"
+            },
+            "es": {
+                # Ventana y elementos básicos
+                "window_title": "Gestor de Paquetes Autobuild",
+                "ready": "Listo",
+                
+                # Área de archivo
+                "xml_file": "Archivo XML:",
+                "no_file_loaded": "Ningún archivo cargado",
+                "open_file": "Abrir Archivo",
+                "save_file": "Guardar Archivo",
+                "export_overview": "Exportar Vista General",
+                "create_backup": "Crear Respaldo",
+                
+                # Encabezados de columna
+                "package_id": "ID Paquete",
+                "name": "Nombre",
+                "version": "Versión",
+                "platforms": "Plataformas",
+                "license": "Licencia",
+                
+                # Botones
+                "remove_selected": "Eliminar Paquetes Seleccionados",
+                "remove_linux": "Eliminar Todas Plataformas Linux",
+                "remove_darwin": "Eliminar Todas Plataformas Darwin",
+                "refresh": "Actualizar",
+                "language": "Idioma:",
+                
+                # Diálogos y mensajes
+                "warning": "Advertencia",
+                "error": "Error",
+                "success": "Éxito",
+                "information": "Información",
+                "file_saved": "Archivo guardado",
+                "backup_created": "Respaldo creado",
+                "overview_exported": "Vista general exportada",
+                
+                # Mensajes de error
+                "no_packages_selected": "Ningún paquete seleccionado. Por favor seleccione al menos un paquete.",
+                "no_xml_loaded": "Ningún archivo XML cargado.",
+                "no_package_selected_remove": "Por favor seleccione un paquete para eliminar.",
+                "no_file_to_save": "Ningún archivo cargado para guardar.",
+                
+                # Confirmaciones
+                "confirm_remove_package": "¿Realmente desea eliminar el paquete '{0}'?\n\nEsta acción no se puede deshacer.",
+                "confirm_remove_linux": "¿Desea eliminar todas las plataformas Linux (linux64 y linux) de todos los paquetes?\n\nEsto elimina entradas Linux de 64-bit y 32-bit obsoletas.\nEsta acción no se puede deshacer.",
+                "confirm_remove_darwin": "¿Desea eliminar todas las plataformas Darwin (darwin64 y darwin) de todos los paquetes?\n\nEsto elimina entradas Darwin de 64-bit y 32-bit obsoletas.\nEsta acción no se puede deshacer.",
+                
+                # Textos de exportación
+                "overview_title": "VISTA GENERAL DE PAQUETES AUTOBUILD",
+                "source_xml": "XML Fuente",
+                "selected_packages_count": "Número de paquetes seleccionados",
+                "package": "PAQUETE",
+                "description": "Descripción",
+                "copyright": "Copyright",
+                "platform_details": "Detalles de Plataforma",
+                "archive_path": "Ruta de Archivo",
+                "hash": "Hash",
+                "url": "URL",
+                "not_available": "No disponible",
+                
+                # Mensajes de estado
+                "packages_removed": "{0} plataformas Linux eliminadas",
+                "darwin_removed": "{0} plataformas Darwin eliminadas",
+                "no_linux_found": "No se encontraron plataformas Linux",
+                "no_darwin_found": "No se encontraron plataformas Darwin",
+                "package_removed": "Paquete '{0}' eliminado",
+                "selection_status_none": "Ningún paquete seleccionado ({0} disponibles)",
+                "selection_status_all": "Todos los {0} paquetes seleccionados",
+                "selection_status_partial": "{0} de {1} paquetes seleccionados"
+            }
+        }
+    
+    def set_language(self, language_code):
+        """Sprache ändern"""
+        if language_code in self.translations:
+            self.current_language = language_code
+    
+    def get_text(self, key, *args):
+        """Lokalisierten Text abrufen"""
+        text = self.translations.get(self.current_language, {}).get(key, key)
+        if not text:
+            text = key  # Fallback zum Schlüssel
+        if args and text:
+            try:
+                text = text.format(*args)
+            except Exception:
+                pass
+        return text
+    
+    def get_languages(self):
+        """Verfügbare Sprachen zurückgeben"""
+        return {
+            "de": "Deutsch",
+            "en": "English", 
+            "fr": "Français",
+            "es": "Español"
+        }
 
 class AutobuildPackageManager:
     def __init__(self, root):
         self.root = root
-        self.root.title("Autobuild Package Manager")
+        
+        # Internationalisierung initialisieren
+        self.i18n = Internationalization()
+        
+        self.root.title(self.i18n.get_text("window_title"))
         self.root.geometry("850x700")
         
         # Icon setzen
@@ -151,34 +470,64 @@ class AutobuildPackageManager:
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky="nsew")
         
+        # Sprach-Auswahl Frame (oben)
+        language_frame = ttk.Frame(main_frame)
+        language_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 10))
+        
+        ttk.Label(language_frame, text=self.i18n.get_text("language")).grid(row=0, column=0, sticky=tk.W)
+        
+        self.language_var = tk.StringVar()
+        language_combo = ttk.Combobox(language_frame, textvariable=self.language_var, 
+                                     values=list(self.i18n.get_languages().values()),
+                                     state="readonly", width=15)
+        language_combo.grid(row=0, column=1, sticky=tk.W, padx=(5, 0))
+        language_combo.bind("<<ComboboxSelected>>", self.on_language_change)
+        
+        # Standardsprache setzen
+        current_lang_name = self.i18n.get_languages()[self.i18n.current_language]
+        self.language_var.set(current_lang_name)
+        
         # Datei-Auswahl Frame
         file_frame = ttk.Frame(main_frame)
-        file_frame.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 10))
+        file_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(0, 10))
         
-        ttk.Label(file_frame, text="XML-Datei:").grid(row=0, column=0, sticky=tk.W)
-        self.file_label = ttk.Label(file_frame, text="Keine Datei geladen", foreground="red")
+        self.xml_label = ttk.Label(file_frame, text=self.i18n.get_text("xml_file"))
+        self.xml_label.grid(row=0, column=0, sticky=tk.W)
+        
+        self.file_label = ttk.Label(file_frame, text=self.i18n.get_text("no_file_loaded"), foreground="red")
         self.file_label.grid(row=0, column=1, sticky=tk.W, padx=(10, 0))
         
-        ttk.Button(file_frame, text="Datei öffnen", command=self.open_file, style="Blue.TButton").grid(row=0, column=2, padx=(10, 0))
-        ttk.Button(file_frame, text="Datei speichern", command=self.save_file, style="Blue.TButton").grid(row=0, column=3, padx=(5, 0))
-        ttk.Button(file_frame, text="Übersicht exportieren", command=self.export_package_overview, style="Blue.TButton").grid(row=0, column=4, padx=(5, 0))
-        ttk.Button(file_frame, text="Backup erstellen", command=self.create_backup, style="Blue.TButton").grid(row=0, column=5, padx=(5, 0))
+        self.open_button = ttk.Button(file_frame, text=self.i18n.get_text("open_file"), 
+                                     command=self.open_file, style="Blue.TButton")
+        self.open_button.grid(row=0, column=2, padx=(10, 0))
+        
+        self.save_button = ttk.Button(file_frame, text=self.i18n.get_text("save_file"), 
+                                     command=self.save_file, style="Blue.TButton")
+        self.save_button.grid(row=0, column=3, padx=(5, 0))
+        
+        self.export_button = ttk.Button(file_frame, text=self.i18n.get_text("export_overview"), 
+                                       command=self.export_package_overview, style="Blue.TButton")
+        self.export_button.grid(row=0, column=4, padx=(5, 0))
+        
+        self.backup_button = ttk.Button(file_frame, text=self.i18n.get_text("create_backup"), 
+                                       command=self.create_backup, style="Blue.TButton")
+        self.backup_button.grid(row=0, column=5, padx=(5, 0))
         
         # Paket-Liste Frame
         list_frame = ttk.Frame(main_frame)
-        list_frame.grid(row=1, column=0, columnspan=2, sticky="nsew", pady=(0, 10))
+        list_frame.grid(row=2, column=0, columnspan=2, sticky="nsew", pady=(0, 10))
         
         # Treeview für Paketliste mit Checkboxen
         columns = ("Selected", "Name", "Version", "Plattformen", "Lizenz")
         self.tree = ttk.Treeview(list_frame, columns=columns, show="tree headings", height=15)
         
         # Spaltenüberschriften
-        self.tree.heading("#0", text="Paket-ID")
+        self.tree.heading("#0", text=self.i18n.get_text("package_id"))
         self.tree.heading("Selected", text="☐", command=self.toggle_all_selection)
-        self.tree.heading("Name", text="Name")
-        self.tree.heading("Version", text="Version")
-        self.tree.heading("Plattformen", text="Plattformen")
-        self.tree.heading("Lizenz", text="Lizenz")
+        self.tree.heading("Name", text=self.i18n.get_text("name"))
+        self.tree.heading("Version", text=self.i18n.get_text("version"))
+        self.tree.heading("Plattformen", text=self.i18n.get_text("platforms"))
+        self.tree.heading("Lizenz", text=self.i18n.get_text("license"))
         
         # Spaltenbreiten
         self.tree.column("#0", width=180, minwidth=120)
@@ -201,31 +550,82 @@ class AutobuildPackageManager:
         
         # Button Frame
         button_frame = ttk.Frame(main_frame)
-        button_frame.grid(row=2, column=0, columnspan=2, sticky="ew")
+        button_frame.grid(row=3, column=0, columnspan=2, sticky="ew")
         
-        ttk.Button(button_frame, text="Ausgewählte Pakete entfernen", 
-                  command=self.remove_selected_package, style="Accent.TButton").grid(row=0, column=0, padx=(0, 10))
-        ttk.Button(button_frame, text="Alle Linux-Plattformen entfernen", 
-                  command=self.remove_all_linux64, style="Blue.TButton").grid(row=0, column=1, padx=(0, 10))
-        ttk.Button(button_frame, text="Alle Darwin-Plattformen entfernen", 
-                  command=self.remove_all_darwin64, style="Blue.TButton").grid(row=0, column=2, padx=(0, 10))
-        ttk.Button(button_frame, text="Aktualisieren", 
-                  command=self.refresh_packages, style="Blue.TButton").grid(row=0, column=3)
+        self.remove_button = ttk.Button(button_frame, text=self.i18n.get_text("remove_selected"), 
+                  command=self.remove_selected_package, style="Accent.TButton")
+        self.remove_button.grid(row=0, column=0, padx=(0, 10))
+        
+        self.linux_button = ttk.Button(button_frame, text=self.i18n.get_text("remove_linux"), 
+                  command=self.remove_all_linux64, style="Blue.TButton")
+        self.linux_button.grid(row=0, column=1, padx=(0, 10))
+        
+        self.darwin_button = ttk.Button(button_frame, text=self.i18n.get_text("remove_darwin"), 
+                  command=self.remove_all_darwin64, style="Blue.TButton")
+        self.darwin_button.grid(row=0, column=2, padx=(0, 10))
+        
+        self.refresh_button = ttk.Button(button_frame, text=self.i18n.get_text("refresh"), 
+                  command=self.refresh_packages, style="Blue.TButton")
+        self.refresh_button.grid(row=0, column=3)
         
         # Status Frame
         status_frame = ttk.Frame(main_frame)
-        status_frame.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(10, 0))
+        status_frame.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(10, 0))
         
-        self.status_label = ttk.Label(status_frame, text="Bereit")
+        self.status_label = ttk.Label(status_frame, text=self.i18n.get_text("ready"))
         self.status_label.grid(row=0, column=0, sticky=tk.W)
         
         # Grid-Gewichtung für Responsive Design
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
         main_frame.columnconfigure(0, weight=1)
-        main_frame.rowconfigure(1, weight=1)
+        main_frame.rowconfigure(2, weight=1)
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
+    
+    def on_language_change(self, event=None):
+        """Sprache ändern"""
+        # Finde den Sprachcode basierend auf dem ausgewählten Namen
+        selected_name = self.language_var.get()
+        for code, name in self.i18n.get_languages().items():
+            if name == selected_name:
+                self.i18n.set_language(code)
+                break
+        
+        # UI aktualisieren
+        self.update_ui_language()
+        
+        # Fenster-Titel aktualisieren
+        self.root.title(self.i18n.get_text("window_title"))
+    
+    def update_ui_language(self):
+        """UI-Elemente mit neuer Sprache aktualisieren"""
+        # Labels aktualisieren
+        self.xml_label.config(text=self.i18n.get_text("xml_file"))
+        if hasattr(self, 'file_label') and self.xml_file is None:
+            self.file_label.config(text=self.i18n.get_text("no_file_loaded"))
+        
+        # Buttons aktualisieren
+        self.open_button.config(text=self.i18n.get_text("open_file"))
+        self.save_button.config(text=self.i18n.get_text("save_file"))
+        self.export_button.config(text=self.i18n.get_text("export_overview"))
+        self.backup_button.config(text=self.i18n.get_text("create_backup"))
+        self.remove_button.config(text=self.i18n.get_text("remove_selected"))
+        self.linux_button.config(text=self.i18n.get_text("remove_linux"))
+        self.darwin_button.config(text=self.i18n.get_text("remove_darwin"))
+        self.refresh_button.config(text=self.i18n.get_text("refresh"))
+        
+        # Treeview-Überschriften aktualisieren
+        self.tree.heading("#0", text=self.i18n.get_text("package_id"))
+        self.tree.heading("Name", text=self.i18n.get_text("name"))
+        self.tree.heading("Version", text=self.i18n.get_text("version"))
+        self.tree.heading("Plattformen", text=self.i18n.get_text("platforms"))
+        self.tree.heading("Lizenz", text=self.i18n.get_text("license"))
+        
+        # Status aktualisieren
+        if hasattr(self, 'status_label'):
+            self.update_selection_count()
+    
     
     def open_file(self):
         """XML-Datei öffnen"""
@@ -358,12 +758,27 @@ class AutobuildPackageManager:
                     if detail_child.tag == "key":
                         detail_key = detail_child.text
                     elif detail_child.tag == "string" and detail_key:
-                        if detail_key == "hash":
-                            info["platform_details"][current_platform]["hash"] = detail_child.text
-                        elif detail_key == "archive":
-                            info["platform_details"][current_platform]["archive_path"] = detail_child.text
-                        elif detail_key == "url":
-                            info["platform_details"][current_platform]["url"] = detail_child.text
+                        if detail_key == "name":
+                            # Name der Plattform - bereits verarbeitet
+                            pass
+                        detail_key = None
+                    elif detail_child.tag == "map" and detail_key == "archive":
+                        # Archive-Details sind in einem verschachtelten Map
+                        archive_key = None
+                        for archive_child in detail_child:
+                            if archive_child.tag == "key":
+                                archive_key = archive_child.text
+                            elif archive_child.tag == "string" and archive_key:
+                                if archive_key == "hash":
+                                    info["platform_details"][current_platform]["hash"] = archive_child.text
+                                elif archive_key == "url":
+                                    info["platform_details"][current_platform]["url"] = archive_child.text
+                                    # URL als Archive-Pfad verwenden (oder Dateiname extrahieren)
+                                    if archive_child.text:
+                                        # Dateiname aus URL extrahieren
+                                        archive_filename = archive_child.text.split('/')[-1]
+                                        info["platform_details"][current_platform]["archive_path"] = archive_filename
+                                archive_key = None
                         detail_key = None
     
     def refresh_packages(self):
@@ -444,11 +859,11 @@ class AutobuildPackageManager:
         total_count = len(self.packages)
         
         if selected_count == 0:
-            status_text = f"Keine Pakete ausgewählt ({total_count} verfügbar)"
+            status_text = self.i18n.get_text("selection_status_none", total_count)
         elif selected_count == total_count:
-            status_text = f"Alle {total_count} Pakete ausgewählt"
+            status_text = self.i18n.get_text("selection_status_all", total_count)
         else:
-            status_text = f"{selected_count} von {total_count} Paketen ausgewählt"
+            status_text = self.i18n.get_text("selection_status_partial", selected_count, total_count)
         
         self.status_label.config(text=status_text)
     
@@ -456,16 +871,16 @@ class AutobuildPackageManager:
         """Ausgewähltes Paket entfernen"""
         selection = self.tree.selection()
         if not selection:
-            messagebox.showwarning("Warnung", "Bitte wählen Sie ein Paket zum Entfernen aus.")
+            messagebox.showwarning(self.i18n.get_text("warning"), 
+                                 self.i18n.get_text("no_package_selected_remove"))
             return
         
         package_id = selection[0]
         
         # Bestätigung
         result = messagebox.askyesno(
-            "Paket entfernen", 
-            f"Möchten Sie das Paket '{package_id}' wirklich entfernen?\n\n"
-            f"Diese Aktion kann nicht rückgängig gemacht werden."
+            self.i18n.get_text("warning"), 
+            self.i18n.get_text("confirm_remove_package", package_id)
         )
         
         if result:
@@ -689,9 +1104,14 @@ class AutobuildPackageManager:
                             if platform in package_info['platform_details']:
                                 details = package_info['platform_details'][platform]
                                 f.write(f"  {platform}:\n")
-                                f.write(f"    Archive-Pfad: {details['archive_path']}\n")
-                                f.write(f"    Hash: {details['hash']}\n")
-                                f.write(f"    URL: {details['url']}\n")
+                                f.write(f"    Archive-Pfad: {details.get('archive_path', 'Nicht verfügbar')}\n")
+                                f.write(f"    Hash: {details.get('hash', 'Nicht verfügbar')}\n")
+                                f.write(f"    URL: {details.get('url', 'Nicht verfügbar')}\n")
+                            else:
+                                f.write(f"  {platform}:\n")
+                                f.write("    Archive-Pfad: Nicht verfügbar\n")
+                                f.write("    Hash: Nicht verfügbar\n")
+                                f.write("    URL: Nicht verfügbar\n")
                         
                         f.write("\n" + "="*80 + "\n\n")
             
