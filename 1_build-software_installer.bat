@@ -19,6 +19,42 @@ echo %GREEN%=== Installation der Build-Tools ===%RESET%
 echo %GREEN%Dieses Skript installiert die benötigten Software-Tools für den Firestorm Build-Prozess.%RESET%
 echo %CYAN%──────────────────────────────────────────────────────────────────────────────────%RESET%
 
+:: 0. Aktivieren von langen Pfaden in Windows 10/11
+echo %GREEN%0. Aktiviere lange Pfade in Windows (LongPathsEnabled)%RESET%
+SETLOCAL ENABLEEXTENSIONS
+
+:: Prüfen, ob LongPathsEnabled bereits gesetzt ist
+REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled >nul 2>&1
+IF ERRORLEVEL 1 (
+    echo [FEHLER] Registry-Schlüssel nicht gefunden.
+    goto :set_flag
+)
+
+FOR /F "tokens=3" %%A IN ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled ^| find "REG_DWORD"') DO (
+    SET Flag=%%A
+)
+
+IF "%Flag%"=="0x1" (
+    echo [OK] Lange Pfade sind bereits aktiviert.
+    goto :end
+)
+
+:: Wenn nicht aktiviert, dann setzen
+:set_flag
+echo [INFO] Lange Pfade sind deaktiviert. Aktiviere Registry-Schlüssel...
+REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
+IF ERRORLEVEL 1 (
+    echo [FEHLER] Konnte Registry-Schlüssel nicht setzen. Starte als Administrator.
+    goto :end
+)
+
+echo [OK] Lange Pfade wurden aktiviert.
+echo [HINWEIS] Bitte starte dein System neu, damit die Änderung wirksam wird.
+
+:end
+@REM pause
+ENDLOCAL
+
 :: 1. Visual Studio 2022 Community mit BEIDEN Toolsets
 echo %GREEN%1. Installiere Visual Studio 2022 Community%RESET%
 echo %GREEN%   - Workload: "Desktop development with C++"%RESET%
